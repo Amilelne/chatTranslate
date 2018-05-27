@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-lg-4 offset 2">
+    <form>
+      <fieldset class="form-group">
+        <label for="InputNickname">请输入你在聊天室的昵称</label>
+        <input #Nickname type="text" class="form-control" id="InputNickname" placeholder="昵称">
+      </fieldset>
+      <button type="submit" (click)="setNickname(Nickname.value)" class="btn btn-primary" routerLink="/chatroom" >进入聊天室</button>
+    </form>
+  </div>
+</div>
