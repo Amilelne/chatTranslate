@@ -1,6 +1,7 @@
 .container-fluid {
   /* background-image:url(assets/sunshine.jpg); */
   background: linear-gradient(30deg,#f7c9c9,#92a8d1);
+  /* background: linear-gradient(30deg,#ff7675,#0984e3); */
 }
 
 .card {

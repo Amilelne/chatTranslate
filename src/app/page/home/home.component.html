@@ -12,13 +12,14 @@
 
 <div class="card text-center" style="background-image:url(assets/justBreathe.jpg);height: 800px;">
   <div class="card-body text-center">
+    <h5 class="card-title text-center">breathe</h5>
     <div class="card bg-transparent" style="border: none;margin: 120px auto;">
-      <div class="card-body bg-transparent" style="font-family:serif, Courier, monospace;">请输入您的昵称</div>
+      <div class="card-body bg-transparent">我的专属昵称</div>
       <div class="card-body">
         <input #Nickname type="text" class="inputNickname bg-transparent" id="InputNickname">
       </div>
       <div class="card-body">
-        <button type="submit" (click)="setNickname(Nickname.value)" class="btn btn-lg" style="background-color: #4b7bec" routerLink="/match" >进入聊天室</button>
+        <button type="submit" (click)="setNickname(Nickname.value)" class="btn btn-lg btn-outline-dark"  routerLink="/match" >开始聊天</button>
       </div>
     </div>
   </div>

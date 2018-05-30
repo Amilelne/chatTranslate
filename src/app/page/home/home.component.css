@@ -3,8 +3,15 @@
   float: none;
 }
 
-.card-body {
+.card-title {
   font-size: 200%;
+  color: #636e72;
+  font-family: cursive, sans-serif, Georgia, 'Times New Roman', Times;
+  background-color: linear-gradient(30deg,#f7c9c9,#92a8d1);
+}
+
+.card-body {
+  font-size: 150%;
 }
 
 .inputNickname {
@@ -13,6 +20,8 @@
   outline: none;
   padding-bottom: 15px;
   text-align: center;
+  width: 350px;
 }
+
 
 

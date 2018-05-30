@@ -1,0 +1,20 @@
+.container-fluid {
+  /* background-image:url(assets/sunshine.jpg); */
+  background: linear-gradient(30deg,#f7c9c9,#92a8d1);
+  /* background: linear-gradient(30deg,#ff7675,#0984e3); */
+}
+.card-title {
+  font-size: 200%;
+  color: #636e72;
+  font-family: cursive, sans-serif, Georgia, 'Times New Roman', Times;
+  margin: 20px auto;
+}
+.card {
+  width: 500px;
+  margin: auto;
+  border: none;
+}
+/* .card-img-top {
+  height: 900px;
+  width: 520px;
+} */
