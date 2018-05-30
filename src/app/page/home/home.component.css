@@ -1,0 +1,18 @@
+.card {
+  margin: auto;
+  float: none;
+}
+
+.card-body {
+  font-size: 200%;
+}
+
+.inputNickname {
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+

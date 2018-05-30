@@ -18,24 +18,44 @@
 </div> -->
 
 <div class="container-fluid">
-  <div class="card text-center">
-    <div class="card-header">
-      聊天室
+  <div class="card text-center w-75" >
+    <div class="card-header" style="background: linear-gradient(30deg,#f7c9c9,#92a8d1);font-family: Georgia, sans-serif, cursive;height:60px;">
+    
     </div>
-    <div class="card-body">
-      <div *ngFor="let mes of messages">
-        <div class="row">
-          <div class="float-left" style="display: inline-block;">{{mes.username}}: </div>
-          <div class="alert alert-primary text-left float-left">{{mes.content}}</div>
-          <div class="alert alert-secondary text-left float-left">{{mes.translate}}</div>    
+    <div class="card-body bg-light">
+      <div class="scroll-box ">
+        <div *ngFor="let mes of messages">
+            <div class="row">
+              <div class="float-left" style="display: inline-block;">{{mes.username}}: </div>
+              <div class="alert alert-primary text-left float-left">{{mes.content}}</div>
+              <div class="alert alert-secondary text-left float-left">{{mes.translate}}</div>    
+            </div>
         </div>
       </div>
+      
     </div>
     <div class="card-footer">
       <div class="input-group" >
         <input #InputMessage [(ngModel)]="message" type="text" class="form-control"  placeholder="说点什么..." (keyup.enter)="sendMessage(InputMessage.value)">
+        <div class="btn-group">
+          <button type="button" class="btn" id="showLang" style="width:80px;margin-left:2px;background-color: #eb3b5a;">{{lang}}</button>
+          <button type="button" class="btn dropdown-toggle dropdown-toggle-split" style="background-color: #eb3b5a;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="changeLanguage('auto')">自动</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="changeLanguage('zh')">简体中文</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="changeLanguage('en')">英语</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="changeLanguage('jp')">日语</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="changeLanguage('kor')">韩语</a>
+          </div>
+        </div>
         <span class="input-group-addon">
-          <button class="btn btn-primary" type="button" (click)="sendMessage(InputMessage.value)">发送</button>
+          <button class="btn" type="button" (click)="sendMessage(InputMessage.value)" style="background-color: #4b7bec;width:90px;margin-left:2px;">发送</button>
         </span>
       </div>
     </div>

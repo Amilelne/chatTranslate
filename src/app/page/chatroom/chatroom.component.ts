@@ -14,13 +14,24 @@ export class ChatroomComponent implements OnInit {
   public messages = [];
   public connection;
   public message;
+  public lang;
+  public chatName;
   
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService) {
+    this.lang = '自动';
+  }
 
   ngOnInit() {
+    var getChat = this.chatService.getChat().subscribe(chatName => {
+      this.chatName = chatName;
+      console.log("getChat with" + this.chatName);
+    });
     this.connection = this.chatService.getMessage().subscribe(message => {
       this.messages.push(message);
+    });
+    var getErr = this.chatService.getErr().subscribe(err => {
+      console.log(err);
     })
   }
 
@@ -34,8 +45,21 @@ export class ChatroomComponent implements OnInit {
     this.chatService.sendMessage(message);
     this.message = '';
   }
-  translate(messageObject) {
-    //this.chatService.translateMessage(messageObject.content);
+  changeLanguage(language: string) {
+    if(!language){
+      language = "zh";
+      this.lang = "简体中文";
+    }
+    if(language == 'en'){
+      this.lang = '英语';
+    } else if(language == 'zh'){
+      this.lang = '简体中文';
+    } else if(language == 'jp'){
+      this.lang = '日语';
+    } else if(language == 'kor'){
+      this.lang = '韩语';
+    }
+    this.chatService.setLanguage(language);
   }
 
   @HostListener('click')

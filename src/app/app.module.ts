@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChatService } from './chat.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatchComponent } from './page/match/match.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ChatroomComponent
+    ChatroomComponent,
+    MatchComponent
   ],
   imports: [
     BrowserModule,

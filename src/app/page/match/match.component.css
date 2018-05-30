@@ -1,0 +1,15 @@
+.card-deck {
+  margin: auto auto;
+}
+
+.card {
+  border: none;
+  border-radius: 50%;
+  background-color: #778ca3;
+  margin: 200px auto;
+  float: center;
+}
+
+.card-img-bottom {
+  margin: auto auto;;
+}
