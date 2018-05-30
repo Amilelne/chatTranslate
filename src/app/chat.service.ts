@@ -11,7 +11,7 @@ export class ChatService {
   public socket;
   public language;
   private id;
-  public toward;
+  private sendto;
   public chatName;
   private url = 'http://localhost:3000';
 
@@ -34,12 +34,12 @@ export class ChatService {
     console.log("userid:"+this.id);
   }
 
-  sendMessage (message: string){
+  sendMessage (message: string, sendto){
     if(!this.nickName)
       this.nickName = "Anonymous";
     if(!this.language)
       this.language = "zh";
-    this.socket.emit('message',{username: this.nickName, userid: this.id, content: message, translate: null, to: this.language, toward: this.toward});
+    this.socket.emit('message',{sendto: sendto, username: this.nickName, userid: this.id, content: message, translate: null, to: this.language});
     // var msg = {username: this.nickName, content: message, translate: null};
     // return this.http.post(this.url+'/chat',msg);
   }
@@ -63,18 +63,18 @@ export class ChatService {
       });
       this.socket.on('getChat', function(data, nameList){
         console.log("get data:"+JSON.stringify(data)+",get nameList:"+JSON.stringify(nameList));
-        console.log("this.toward="+this.id+",userid="+userid);
         if(data.p1 == userid){
-          this.toward = data.p2;
+          this.sendto = data.p2;
           console.log("equal p1");
         }else if(data.p2 == userid){
-          this.toward = data.p1;
+          this.sendto = data.p1;
           console.log("equal p2");
         }
-        this.chatName = nameList[this.toward];
-        if(this.toward){
+        console.log("this.sendto="+this.sendto+",userid="+userid);
+        this.chatName = nameList[this.sendto];
+        if(this.sendto){
           console.log("与"+this.chatName+"聊天中...");
-          observer.next(this.chatName);
+          observer.next(this.sendto);
         }
       });
     })
@@ -84,7 +84,7 @@ export class ChatService {
   getMessage (){
     let observable = new Observable(observer => {
       //this.socket = io(this.url);
-      this.socket.on('message', (message) => {
+      this.socket.on('getMsg', (message) => {
         observer.next(message);
         console.log(message);
       });

@@ -15,7 +15,7 @@ export class ChatroomComponent implements OnInit {
   public connection;
   public message;
   public lang;
-  public chatName;
+  public sendto;
   
 
   constructor(private chatService: ChatService) {
@@ -23,12 +23,12 @@ export class ChatroomComponent implements OnInit {
   }
 
   ngOnInit() {
-    var getChat = this.chatService.getChat().subscribe(chatName => {
-      this.chatName = chatName;
-      console.log("getChat with" + this.chatName);
+    var getChat = this.chatService.getChat().subscribe(sendto => {
+      this.sendto = sendto;
+      console.log("getChat with" + this.sendto);
     });
     this.connection = this.chatService.getMessage().subscribe(message => {
-      this.messages.push(message);
+      this.messages.push(message['msg']);
     });
     var getErr = this.chatService.getErr().subscribe(err => {
       console.log(err);
@@ -41,8 +41,10 @@ export class ChatroomComponent implements OnInit {
 
   sendMessage(message: string) {
     console.log("message: "+message);
+    var mes = {content: message, username: this.chatService.nickName}
+    this.messages.push(mes);
     //this.chatService.sendMessage(message).subscribe(data => console.log(data));
-    this.chatService.sendMessage(message);
+    this.chatService.sendMessage(message, this.sendto);
     this.message = '';
   }
   changeLanguage(language: string) {
