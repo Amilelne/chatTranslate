@@ -33,7 +33,7 @@ export class ChatroomComponent implements OnInit {
         this.messages.push(msgFrom);
       }else{
         this.sendto = msgFrom['sendto'];
-        this.chatName = msgFrom['chatName']
+        this.chatName = '正在与'+msgFrom['chatName']+'聊天...'
         console.log("getChat with" + this.sendto);
       } 
     });

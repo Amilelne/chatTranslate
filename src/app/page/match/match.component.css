@@ -1,3 +1,6 @@
+.container-fluid {
+  background: linear-gradient(30deg,#f7c9c9,#92a8d1);
+}
 .card-deck {
   margin: auto auto;
 }
