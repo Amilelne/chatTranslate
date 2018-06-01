@@ -16,16 +16,26 @@ export class ChatroomComponent implements OnInit {
   public message;
   public lang;
   public sendto;
+  public chatName;
+  private restart;
+  private status;
   
 
   constructor(private chatService: ChatService) {
-    this.lang = '自动';
+    this.lang = '无';
+    this.restart = false;
+    this.status = '离开';
   }
 
   ngOnInit() {
-    var getChat = this.chatService.getChat().subscribe(sendto => {
-      this.sendto = sendto;
-      console.log("getChat with" + this.sendto);
+    var getChat = this.chatService.getChat().subscribe(msgFrom => {
+      if(msgFrom['info']){
+        this.messages.push(msgFrom);
+      }else{
+        this.sendto = msgFrom['sendto'];
+        this.chatName = msgFrom['chatName']
+        console.log("getChat with" + this.sendto);
+      } 
     });
     this.connection = this.chatService.getMessage().subscribe(message => {
       this.messages.push(message['msg']);
@@ -41,11 +51,24 @@ export class ChatroomComponent implements OnInit {
 
   sendMessage(message: string) {
     console.log("message: "+message);
-    var mes = {content: message, username: this.chatService.nickName}
+    var mes = {content: message, username: this.chatService.nickName, from: true,info:false}
     this.messages.push(mes);
     //this.chatService.sendMessage(message).subscribe(data => console.log(data));
     this.chatService.sendMessage(message, this.sendto);
     this.message = '';
+  }
+  leave(){
+    var mes = {content:'您已经断开了连线', from:false, info:true};
+    this.messages.push(mes);
+    this.chatService.sendMessage('对方已经断开了连线', this.sendto);
+    this.restart = true;
+    this.status = '重新开始';
+    this.messages.push()
+    this.chatService.leave();
+  }
+  renew(){
+    this.restart = false;
+    this.status = '离开';
   }
   changeLanguage(language: string) {
     if(!language){
@@ -60,6 +83,8 @@ export class ChatroomComponent implements OnInit {
       this.lang = '日语';
     } else if(language == 'kor'){
       this.lang = '韩语';
+    } else if(language == 'no'){
+      this.lang = '无';
     }
     this.chatService.setLanguage(language);
   }

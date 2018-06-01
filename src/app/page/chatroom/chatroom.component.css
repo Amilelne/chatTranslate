@@ -2,6 +2,9 @@
   /* background-image:url(assets/sunshine.jpg); */
   background: linear-gradient(30deg,#f7c9c9,#92a8d1);
   /* background: linear-gradient(30deg,#ff7675,#0984e3); */
+  margin: 0px;
+  height: 750px;
+
 }
 
 .card {
@@ -10,6 +13,14 @@
 
 .scroll-box {
   overflow-y: scroll;
-  height: 550px;
+  height: 520px;
   padding: 1em;
+}
+
+.alert {
+  font-size: 20px;
+}
+
+.dropdown-item{
+  font-size: 15px;
 }

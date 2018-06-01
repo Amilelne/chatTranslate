@@ -134,50 +134,54 @@ io.on('connection', function(socket){
 
         //监听用户发布聊天内容
         socket.on('message', function(obj){
-                // var translateUrl = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
-                // var query = (obj.content);
-                // var appid = '20180425000150229';
-                // var userkey = 't51EKZ8veg2u_1snCNpM';
-                // var salt = (new Date).getTime();
-                // var from = 'auto';
-                // //set translate language
-                // console.log("language:"+obj.to);
-                // var to = obj.to;
-                // var str1 = appid + query + salt +userkey;
-                // var sign = Md5(str1);
-                // translateUrl = translateUrl+'?q='+encodeURIComponent(query)+'&from='+from+'&to='+to+'&appid='+appid+'&salt='+salt+'&sign='+sign;
-                // //translateUrl = urlencode(translateUrl);
-                // console.log("translateUrl:"+translateUrl);
-                // https.get(translateUrl,(res) => {
-                //   let data = '';
-                //   res.on('data',(chunk) => {
-                //     data += chunk;
-                //   });
-                //   res.on('end',()=>{
-                //     jsonData = JSON.parse(data);
-                //     console.log("jsonData:"+JSON.stringify(jsonData));
-                //     console.log("trans_re:" + JSON.stringify(jsonData.trans_result[0].dst));
-                //     obj.translate = JSON.stringify(jsonData["trans_result"][0]["dst"]).slice(1,-1);
-                //     //向所有客户端广播发布的消息
-                //     if(userServer.hasOwnProperty(data.toward)){
-                //       userServer[data.toward].emit('getMsg',{msg:obj.translate});
-                //     }else{
-                //       socket.emit('err',{msg:"对方已经下线或者断开连接"})
-                //     }
-                //     //io.emit('message', obj.translate);
-                //
-                //     console.log(data);
-                //   });
-                // }).on('error',(err)=>{
-                //   console.log("Error: "+ err.message);
-                // });
-                console.log("recv msg:"+JSON.stringify(obj));
-                if(userServer.hasOwnProperty(obj.sendto)){
-                  console.log("send msg to:"+obj.sendto);
-                  userServer[obj.sendto].emit('getMsg',{msg:obj});
+                if(obj.to == 'no'){
+                  if(userServer.hasOwnProperty(obj.sendto)){
+                    console.log("send msg to:"+obj.sendto);
+                    userServer[obj.sendto].emit('getMsg',{msg:obj});
+                  }else{
+                    socket.emit('err',{msg:"对方已经下线或者断开连接"})
+                  }
                 }else{
-                  socket.emit('err',{msg:"对方已经下线或者断开连接"})
+                  var translateUrl = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
+                  var query = (obj.content);
+                  var appid = '20180425000150229';
+                  var userkey = 't51EKZ8veg2u_1snCNpM';
+                  var salt = (new Date).getTime();
+                  var from = 'auto';
+                  //set translate language
+                  console.log("language:"+obj.to);
+                  var to = obj.to;
+                  var str1 = appid + query + salt +userkey;
+                  var sign = Md5(str1);
+                  translateUrl = translateUrl+'?q='+encodeURIComponent(query)+'&from='+from+'&to='+to+'&appid='+appid+'&salt='+salt+'&sign='+sign;
+                  //translateUrl = urlencode(translateUrl);
+                  console.log("translateUrl:"+translateUrl);
+                  https.get(translateUrl,(res) => {
+                    let data = '';
+                    res.on('data',(chunk) => {
+                      data += chunk;
+                    });
+                    res.on('end',()=>{
+                      jsonData = JSON.parse(data);
+                      console.log("jsonData:"+JSON.stringify(jsonData));
+                      console.log("trans_re:" + JSON.stringify(jsonData.trans_result[0].dst));
+                      obj.content = JSON.stringify(jsonData["trans_result"][0]["dst"]).slice(1,-1);
+                      //向所有客户端广播发布的消息
+                      if(userServer.hasOwnProperty(obj.sendto)){
+                        console.log("send msg to:"+obj.sendto);
+                        userServer[obj.sendto].emit('getMsg',{msg:obj});
+                      }else{
+                        socket.emit('err',{msg:"对方已经下线或者断开连接"})
+                      }
+                      //io.emit('message', obj.translate);
+                      console.log(data);
+                    });
+                  }).on('error',(err)=>{
+                    console.log("Error: "+ err.message);
+                  });
                 }
+
+                console.log("recv msg:"+JSON.stringify(obj));
 
                 console.log(obj.userid+'说：'+obj.content);
         });

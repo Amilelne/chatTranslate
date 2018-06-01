@@ -18,17 +18,16 @@
 </div> -->
 
 <div class="container-fluid">
-  <div class="card text-center w-75" >
-    <div class="card-header" style="background: linear-gradient(30deg,#ff7675,#0984e3);font-family: Georgia, sans-serif, cursive;height:60px;">
-    
+  <div class="card text-center" style="width: 800px;" >
+    <div class="card-header h2" style="background: linear-gradient(30deg,#ff7675,#0984e3);font-family: Georgia, sans-serif, cursive;height:60px;">
+    {{chatName}}
     </div>
-    <div class="card-body bg-light">
+    <div class="card-bodys">
       <div class="scroll-box ">
         <div *ngFor="let mes of messages">
-            <div class="row">
-              <div class="float-left" style="display: inline-block;">{{mes.username}}: </div>
-              <div class="alert alert-primary text-left float-left">{{mes.content}}</div>
-              <!-- <div class="alert alert-secondary text-left float-left">{{mes.translate}}</div>     -->
+            <div [ngClass]="(mes.from)?'d-flex flex-row-reverse':(mes.info?'d-flex justify-content-center':'d-flex')">
+              <!-- <div class="float-right" style="display: inline-block;">{{mes.username}}: </div> -->
+              <div class="alert text-left float-right" [ngClass]="(mes.from)?'bg-light':(mes.info?'bg-danger':'bg-primary')">{{mes.content}}</div>
             </div>
         </div>
       </div>
@@ -36,6 +35,9 @@
     </div>
     <div class="card-footer">
       <div class="input-group" >
+        <span class="input-group-addon">
+          <button class="btn btn-danger mr-1" type="button" (click)="leave()" style="width:90px;margin-left:2px;">{{status}}</button>
+        </span>
         <input #InputMessage [(ngModel)]="message" type="text" class="form-control"  placeholder="说点什么..." (keyup.enter)="sendMessage(InputMessage.value)">
         <div class="btn-group">
           <button type="button" class="btn" id="showLang" style="width:80px;margin-left:2px;background-color: #eb3b5a;">{{lang}}</button>
@@ -43,7 +45,7 @@
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" (click)="changeLanguage('auto')">自动</a>
+            <a class="dropdown-item" (click)="changeLanguage('no')">无</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="changeLanguage('zh')">简体中文</a>
             <div class="dropdown-divider"></div>

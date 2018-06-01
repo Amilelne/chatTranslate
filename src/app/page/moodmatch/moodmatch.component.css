@@ -2,6 +2,7 @@
   /* background-image:url(assets/sunshine.jpg); */
   background: linear-gradient(30deg,#f7c9c9,#92a8d1);
   /* background: linear-gradient(30deg,#ff7675,#0984e3); */
+  height: 750px;
 }
 .card-title {
   font-size: 200%;
@@ -11,6 +12,7 @@
 }
 .card {
   width: 500px;
+  height: 750px;
   margin: auto;
   border: none;
 }
@@ -18,3 +20,14 @@
   height: 900px;
   width: 520px;
 } */
+
+.custom-control-label {
+  font-family: cursive, sans-serif, Georgia, 'Times New Roman', Times;
+  font-size: 20px;
+}
+.custom-radio {
+  margin-bottom: 20px;
+}
+.btn {
+  margin-top: 40px;
+}

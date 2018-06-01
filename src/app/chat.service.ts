@@ -39,7 +39,7 @@ export class ChatService {
       this.nickName = "Anonymous";
     if(!this.language)
       this.language = "zh";
-    this.socket.emit('message',{sendto: sendto, username: this.nickName, userid: this.id, content: message, translate: null, to: this.language});
+    this.socket.emit('message',{sendto: sendto, username: this.nickName, userid: this.id, content: message, translate: null, to: this.language, from: false});
     // var msg = {username: this.nickName, content: message, translate: null};
     // return this.http.post(this.url+'/chat',msg);
   }
@@ -51,13 +51,14 @@ export class ChatService {
       //this.socket = io(this.url);
       var match = false;
       this.socket.on('onlineCount', function(matchList){
-        console.log("get onlineCount msg");
         var len = matchList.length;
         if(len > 1){
-          console.log("匹配中");
+          var msgInfo = {content: '匹配中...', info: true, from: false};
+          observer.next(msgInfo);
           match = true;
-          console.log("match="+match);
         }else{
+          var msgInfo = {content: '当前服务器只有您一位空闲用户,请等待...', info: true, from: false};
+          observer.next(msgInfo);
           console.log("当前服务器只有您一位空闲空户...");
         }
       });
@@ -65,16 +66,17 @@ export class ChatService {
         console.log("get data:"+JSON.stringify(data)+",get nameList:"+JSON.stringify(nameList));
         if(data.p1 == userid){
           this.sendto = data.p2;
-          console.log("equal p1");
         }else if(data.p2 == userid){
           this.sendto = data.p1;
-          console.log("equal p2");
         }
         console.log("this.sendto="+this.sendto+",userid="+userid);
         this.chatName = nameList[this.sendto];
         if(this.sendto){
-          console.log("与"+this.chatName+"聊天中...");
-          observer.next(this.sendto);
+          var infoMes = '匹配到用户'+this.chatName;
+          var msgInfo = {content: '匹配到用户'+this.chatName, info: true, from: false};
+          observer.next(msgInfo);
+          var msgFrom = {chatName: nameList[this.sendto], sendto: this.sendto, info: false, from: true};
+          observer.next(msgFrom);
         }
       });
     })
@@ -107,6 +109,10 @@ export class ChatService {
       };
     })
     return observable;
+  }
+
+  leave(){
+    this.socket.disconnect();
   }
 
   connectServer() {

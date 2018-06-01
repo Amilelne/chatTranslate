@@ -3,7 +3,21 @@
     <h5 class="card-title">心情互配</h5>
     <img class="card-img-top" src="assets/question.png" alt="question image">
     <div class="card-body">
-      <button class="btn btn-outline-dark">开始匹配</button>
+      <div class="container float-center">
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+          <label class="custom-control-label float-left" for="customRadio1">林徽因-你是人间四月天</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+          <label class="custom-control-label float-left" for="customRadio2">李嘉诚:成功没有偶然</label>
+        </div>
+        <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+            <label class="custom-control-label float-left" for="customRadio3">霍金:时间简史</label>
+        </div>
+      </div> 
+      <button class="btn btn-outline-primary" routerLink="/chatroom">开始匹配</button>
     </div>
   </div>
 </div>
