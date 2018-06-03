@@ -36,7 +36,7 @@
     <div class="card-footer">
       <div class="input-group" >
         <span class="input-group-addon">
-          <button class="btn btn-danger mr-1" type="button" (click)="leave()" style="width:90px;margin-left:2px;">{{status}}</button>
+          <button class="btn btn-danger mr-1" type="button" (click)="leave()" style="width:90px;margin-left:2px;" routerLink='/match'>{{status}}</button>
         </span>
         <input #InputMessage [(ngModel)]="message" type="text" class="form-control"  placeholder="说点什么..." (keyup.enter)="sendMessage(InputMessage.value)">
         <div class="btn-group">

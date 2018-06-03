@@ -54,17 +54,25 @@ export class ChatroomComponent implements OnInit {
     var mes = {content: message, username: this.chatService.nickName, from: true,info:false}
     this.messages.push(mes);
     //this.chatService.sendMessage(message).subscribe(data => console.log(data));
-    this.chatService.sendMessage(message, this.sendto);
+    this.chatService.sendMessage(message, this.sendto, false);
     this.message = '';
   }
   leave(){
-    var mes = {content:'您已经断开了连线', from:false, info:true};
-    this.messages.push(mes);
-    this.chatService.sendMessage('对方已经断开了连线', this.sendto);
-    this.restart = true;
-    this.status = '重新开始';
-    this.messages.push()
-    this.chatService.leave();
+    if(!this.restart){
+      var mes = {content:'您已经断开了连线', from:false, info:true};
+      this.messages.push(mes);
+      this.chatService.sendMessage('对方已经断开了连线', this.sendto, true);
+      this.restart = true;
+      this.status = '重新开始';
+      this.messages.push()
+      this.chatService.leave();
+      this.chatName = null;
+    }
+    else{
+      this.status = '离开';
+      this.restart = false;
+    }
+    
   }
   renew(){
     this.restart = false;

@@ -34,12 +34,17 @@ export class ChatService {
     console.log("userid:"+this.id);
   }
 
-  sendMessage (message: string, sendto){
+  sendMessage (message: string, sendto, info){
     if(!this.nickName)
       this.nickName = "Anonymous";
     if(!this.language)
-      this.language = "zh";
-    this.socket.emit('message',{sendto: sendto, username: this.nickName, userid: this.id, content: message, translate: null, to: this.language, from: false});
+      this.language = "no";
+    if(info){
+      this.socket.emit('message',{sendto: sendto, username: this.nickName, userid: this.id, content: message, translate: null, to: this.language, from: false, info: true});
+    }
+    else{
+      this.socket.emit('message',{sendto: sendto, username: this.nickName, userid: this.id, content: message, translate: null, to: this.language, from: false, info: false});
+    }
     // var msg = {username: this.nickName, content: message, translate: null};
     // return this.http.post(this.url+'/chat',msg);
   }

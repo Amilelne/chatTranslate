@@ -85,7 +85,7 @@ io.on('connection', function(socket){
             }
             console.log("resv match request from "+obj.username);
             //notify the onlineCount people
-            io.emit('onlineCount',quickMatchList);
+            userServer[obj.userid].emit('onlineCount',quickMatchList);
             if(quickMatchList.length > 1){
               console.log("quickMatchList.length="+quickMatchList.length)
               var from = obj.userid;
@@ -116,7 +116,7 @@ io.on('connection', function(socket){
                         freeList.splice(freeList.indexOf(id),1);
                         delete userServer[id];
                         delete userList[id];
-                        io.emit('onlineCount', freeList);
+                        //io.emit('onlineCount', freeList);
                         io.emit('offline', {id: id});
                         io.emit('addCount', onlineCount);
                         //退出用户的信息
