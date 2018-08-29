@@ -1,6 +1,6 @@
 # ChatTranslate
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+The detail description about this project is [here](https://docs.google.com/presentation/d/1OllYkIiFmLRTALq5MjcLIp5TVv3wmCsqJvT5abpUsw8/edit?usp=sharing)
 
 ## Development server
 
